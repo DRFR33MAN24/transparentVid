@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 const zoomStep = 20;
-const maxZoom = 700;
+const maxZoom = 1500;
 const minZoom = 150;
 const App = () => {
   const ref = useRef();
@@ -15,7 +15,7 @@ const App = () => {
 
   useEffect(() => {
     localStorage.setItem("videoZoom", JSON.stringify(videoZoom));
-  }, [videoZoom])
+  }, [videoZoom]);
 
   useEffect(() => {
     function zoomIn() {
@@ -26,7 +26,6 @@ const App = () => {
           return maxZoom;
         }
         return zoom;
-
       });
     }
     function zoomOut() {
@@ -34,10 +33,9 @@ const App = () => {
       setVideoZoom((current) => {
         const zoom = current - zoomStep;
         if (zoom <= minZoom) {
-          return maxZoom;
+          return minZoom;
         }
         return zoom;
-
       });
     }
     function handleKeyDown(e) {
@@ -59,7 +57,7 @@ const App = () => {
   }, []);
 
   return (
-    <div ref={ref}>
+    <div ref={ref} className="App">
       <video loop autoPlay={true} width={videoZoom} className="video">
         <source src="vid.webm" type="video/webm" />
       </video>

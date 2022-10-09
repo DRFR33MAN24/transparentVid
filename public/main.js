@@ -10,23 +10,22 @@ const {
 } = require("electron");
 
 const isDev = require("electron-is-dev");
-const AutoLaunch = require('auto-launch');
-const Store = require('electron-store');
+const AutoLaunch = require("auto-launch");
+const Store = require("electron-store");
 const store = new Store();
 
 let win;
 
 function createWindow() {
-
   let autoLaunch = new AutoLaunch({
-    name: 'Stop Smoking',
-    path: app.getPath('exe')
+    name: "Stop Smoking",
+    path: app.getPath("exe"),
   });
   autoLaunch.isEnabled().then((isEnabled) => {
-    if (!isEnabled) autoLaunch.enable()
-  })
+    if (!isEnabled) autoLaunch.enable();
+  });
   // Create the browser window.
-  const bounds = store.get('windowStartPosition');
+  const bounds = store.get("windowStartPosition") || { x: 0, y: 0 };
   win = new BrowserWindow({
     width: 800,
     height: 800,
@@ -48,8 +47,8 @@ function createWindow() {
   });
   win.on("move", (e) => {
     const bounds = e.sender.getBounds();
-    console.log(bounds);
-    store.set('windowStartPosition', bounds)
+    // console.log(bounds);
+    store.set("windowStartPosition", bounds);
   });
   win.setMenuBarVisibility(false);
   //attachTitlebarToWindow(win);
