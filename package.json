@@ -1,5 +1,5 @@
 {
-  "name": "لا للتدخين",
+  "name": "no-smoking",
   "version": "1.0.0",
   "private": true,
   "homepage": "./",
@@ -35,9 +35,10 @@
   "proxy": "http://localhost:5000",
   "build": {
     "icon": "build/icon.png",
-    "asar": false,
+    "asar": true,
     "extends": null,
-    "appId": "com.mediatech.mufareg",
+    "appId": "com.mediatech.nosmoking",
+    "productName": "لا للتدخين",
     "files": [
       "build/**/*",
       "node_modules/**/*",
