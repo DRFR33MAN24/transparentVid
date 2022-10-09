@@ -35,7 +35,7 @@
   "proxy": "http://localhost:5000",
   "build": {
     "icon": "build/icon.png",
-    "asar": false,
+    "asar": true,
     "extends": null,
     "appId": "com.mediatech.nosmoking",
     "productName": "لا للتدخين",
@@ -43,6 +43,9 @@
       "build/**/*",
       "node_modules/**/*",
       "package.json"
+    ],
+    "asarUnpack": [
+      "build/vid.webm"
     ],
     "directories": {
       "buildResources": "assets"
