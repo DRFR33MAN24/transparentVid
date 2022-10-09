@@ -32,6 +32,9 @@ function createWindow() {
       preload: path.join(__dirname, "preload.js"),
     },
   });
+  win.on("move", (e) => {
+    console.log("moved");
+  });
   win.setMenuBarVisibility(false);
   //attachTitlebarToWindow(win);
 
@@ -97,8 +100,4 @@ ipcMain.on("changeWindowSize", (e, width, height, isMaximizable) => {
   win.isFullScreenable(isMaximizable);
   //win.setFullScreen(isMaximizable);
   // e.reply("onWindowTitleChanged", "title");
-});
-
-ipcMain.on("move", (e) => {
-  console.log("moved");
 });
