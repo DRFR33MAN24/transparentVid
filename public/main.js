@@ -10,14 +10,28 @@ const {
 } = require("electron");
 
 const isDev = require("electron-is-dev");
+const AutoLaunch = require('auto-launch');
+const Store = require('electron-store');
+const store = new Store();
 
 let win;
 
 function createWindow() {
+
+  let autoLaunch = new AutoLaunch({
+    name: 'Stop Smoking',
+    path: app.getPath('exe')
+  });
+  autoLaunch.isEnabled().then((isEnabled) => {
+    if (!isEnabled) autoLaunch.enable()
+  })
   // Create the browser window.
+  const bounds = store.get('windowStartPosition');
   win = new BrowserWindow({
     width: 800,
     height: 800,
+    x: bounds.x,
+    y: bounds.y,
     titleBarStyle: "hidden",
     frame: false,
     resizable: false,
@@ -33,7 +47,9 @@ function createWindow() {
     },
   });
   win.on("move", (e) => {
-    console.log("moved");
+    const bounds = e.sender.getBounds();
+    console.log(bounds);
+    store.set('windowStartPosition', bounds)
   });
   win.setMenuBarVisibility(false);
   //attachTitlebarToWindow(win);
