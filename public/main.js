@@ -98,3 +98,7 @@ ipcMain.on("changeWindowSize", (e, width, height, isMaximizable) => {
   //win.setFullScreen(isMaximizable);
   // e.reply("onWindowTitleChanged", "title");
 });
+
+ipcMain.on("move", (e) => {
+  console.log("moved");
+});
