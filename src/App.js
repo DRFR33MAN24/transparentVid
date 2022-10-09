@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+const { ipcRenderer } = window.require("electron");
 const zoomStep = 20;
 const maxZoom = 1500;
 const minZoom = 150;
@@ -47,18 +48,23 @@ const App = () => {
         zoomOut();
       }
     }
+    function onVideoEnd(e) {
+      ipcRenderer.send("quit");
+    }
 
     document.addEventListener("keydown", handleKeyDown);
-
+    var aud = document.getElementById("video");
+    aud.onended = onVideoEnd;
     // Don't forget to clean up
     return function cleanup() {
       document.removeEventListener("keydown", handleKeyDown);
+      aud.onended = null;
     };
   }, []);
 
   return (
     <div ref={ref} className="App">
-      <video loop autoPlay={true} width={videoZoom} className="video">
+      <video autoPlay={true} width={videoZoom} className="video" id="video">
         <source src="vid.webm" type="video/webm" />
       </video>
     </div>
