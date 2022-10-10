@@ -116,7 +116,6 @@ ipcMain.on("openLink", (e, link) => {
 });
 
 ipcMain.on("changeWindowSize", (e, width, height, isMaximizable) => {
-  console.log(width, height);
   let win = BrowserWindow.fromWebContents(e.sender);
   win.setSize(width, height);
   store.set("winSize", { width: width, height: height });
