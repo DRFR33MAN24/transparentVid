@@ -34,8 +34,10 @@ function createWindow() {
     height: 200,
   };
   win = new BrowserWindow({
-    width: winSize.width,
-    height: winSize.height,
+    // width: winSize.width,
+    // height: winSize.height,
+    width: 800,
+    height: 800,
     x: bounds.x,
     y: bounds.y,
     alwaysOnTop: false,

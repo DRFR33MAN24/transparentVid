@@ -16,7 +16,7 @@ const App = () => {
 
   useEffect(() => {
     localStorage.setItem("videoZoom", JSON.stringify(videoZoom));
-    ipcRenderer.send("changeWindowSize", videoZoom, videoZoom, false);
+    //ipcRenderer.send("changeWindowSize", videoZoom, videoZoom, false);
   }, [videoZoom]);
 
   useEffect(() => {
