@@ -25,12 +25,20 @@ function createWindow() {
     if (!isEnabled) autoLaunch.enable();
   });
   // Create the browser window.
-  const bounds = store.get("windowStartPosition") || { x: 0, y: 0 };
+  const bounds = store.get("windowStartPosition") || {
+    x: 0,
+    y: 0,
+  };
+  const winSize = store.get("winSize") || {
+    width: 200,
+    height: 200,
+  };
   win = new BrowserWindow({
-    width: 800,
-    height: 800,
+    width: winSize.width,
+    height: winSize.height,
     x: bounds.x,
     y: bounds.y,
+    alwaysOnTop: false,
     titleBarStyle: "hidden",
     frame: false,
     resizable: false,
@@ -45,7 +53,7 @@ function createWindow() {
       preload: path.join(__dirname, "preload.js"),
     },
   });
-  win.on("move", (e) => {
+  win.on("moved", (e) => {
     const bounds = e.sender.getBounds();
     // console.log(bounds);
     store.set("windowStartPosition", bounds);
@@ -108,11 +116,13 @@ ipcMain.on("openLink", (e, link) => {
 });
 
 ipcMain.on("changeWindowSize", (e, width, height, isMaximizable) => {
+  console.log(width, height);
   let win = BrowserWindow.fromWebContents(e.sender);
   win.setSize(width, height);
-  win.isMaximizable(isMaximizable);
-  win.isResizable(isMaximizable);
-  win.isFullScreenable(isMaximizable);
+  store.set("winSize", { width: width, height: height });
+  // win.isMaximizable(isMaximizable);
+  // win.isResizable(isMaximizable);
+  // win.isFullScreenable(isMaximizable);
   //win.setFullScreen(isMaximizable);
   // e.reply("onWindowTitleChanged", "title");
 });

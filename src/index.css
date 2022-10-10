@@ -4,6 +4,7 @@ body {
 }
 .App {
   position: absolute;
+  padding: 0;
   -webkit-app-region: drag;
   top: 50%;
   left: 50%;
